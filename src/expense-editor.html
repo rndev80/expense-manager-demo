@@ -17,7 +17,7 @@
         display: flex;
         margin-top: var(--lumo-space-s);
         overflow: auto;
-        flex: 1 1 auto;
+        flex: 1 auto;
       }
 
       h2 {
@@ -83,21 +83,11 @@
           <div id="form">
             <h2>[[_getCaption(_expense)]]</h2>
             <iron-a11y-keys keys="enter" on-keys-pressed="_save"></iron-a11y-keys>
-            <vaadin-combo-box name="merchant" items="[[_merchants]]" value="{{_expense.merchant}}"
-              label="Merchant" allow-custom-value required readonly$="[[!_isNew(_expense)]]"></vaadin-combo-box>
-            <vaadin-text-field name="total" value="{{_expense.total}}" label="Total" pattern="[0-9]+[.]?[0-9]*" required readonly$="[[!_isNew(_expense)]]">
-              <div slot="prefix">$</div>
+            <vaadin-text-field name="title" value="{{_expense.title}}" label="Title" required>
             </vaadin-text-field>
-            <vaadin-date-picker name="date" label="Date" value="{{_expense.date}}" required readonly$="[[!_isNew(_expense)]]"></vaadin-date-picker>
-            <vaadin-text-area name="comment" label="Comment" value="{{_expense.comment}}" on-keydown="_onCommentKeydown"></vaadin-text-area>
+            <vaadin-date-picker name="date" label="Date" value="{{_expense.date}}" required></vaadin-date-picker>
+            <vaadin-text-area name="text" label="Text" value="{{_expense.text}}" on-keydown="_onCommentKeydown"></vaadin-text-area>
           </div>
-          <vaadin-upload id="upload" accept="image/*" max-files="1" on-upload-before="_handleUpload">
-            <div class="file-list">
-              <div class="receipt-wrapper">
-                <img src$="[[_receiptSrc(_expense.receipt)]]" alt="Receipt" hidden$="[[!_expense.receipt]]">
-              </div>
-            </div>
-          </vaadin-upload>
         </div>
 
         <div class="buttons">
@@ -127,10 +117,10 @@
              * The list of available merchants.
              * @type {Array<string>}
              */
-            _merchants: {
-              type: Array,
-              statePath: ExpenseManager.select.merchants
-            },
+            // _merchants: {
+            //   type: Array,
+            //   statePath: ExpenseManager.select.merchants
+            // },
 
             /**
              * The originally selected expense.
@@ -177,13 +167,6 @@
 
           this.$.dialog.opened = !!srcExpense;
 
-          if (srcExpense) {
-            // reset upload after dialog is opened
-            const upload = this._getDialogChild('vaadin-upload');
-            upload.set('i18n.dropFiles.one', 'Drop receipt here...');
-            upload.set('i18n.addFiles.one', 'Select receipt');
-            upload.files = [];
-          }
         }
 
         /**
@@ -328,7 +311,7 @@
         _save() {
           this._errorText = '';
           if (this._isValid()) {
-            this._expense.total = parseFloat(this._expense.total);
+            // this._expense.total = parseFloat(this._expense.total);
             this.dispatch('saveExpense', this._expense);
           } else {
             this.$.dialog.scrollTop = 0;

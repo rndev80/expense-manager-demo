@@ -71,7 +71,7 @@
 
     <vaadin-grid items="[[expenses]]" id="expenses" active-item="{{activeItem}}">
 
-      <vaadin-grid-column width="8em" frozen>
+      <vaadin-grid-column width="4em" frozen>
         <template class="header">
           <vaadin-grid-sorter path="date" direction="desc">
             <div class="header-cell">
@@ -84,44 +84,37 @@
         </template>
       </vaadin-grid-column>
 
-      <vaadin-grid-column width="8em" flex-grow="2">
-        <template class="header">
-          <vaadin-grid-sorter path="merchant">
-            <div class="header-cell">
-              Merchant
-            </div>
-          </vaadin-grid-sorter>
-        </template>
-        <template>
-          [[item.merchant]]
-        </template>
-      </vaadin-grid-column>
-
       <vaadin-grid-column width="6em">
         <template class="header">
-          <vaadin-grid-sorter path="total" class="numeric">
+          <vaadin-grid-sorter path="title" direction="desc">
             <div class="header-cell">
-              Total
+              Title
             </div>
           </vaadin-grid-sorter>
         </template>
         <template>
-          <span class="total">[[_formatTotal(item.total)]]</span>
+          [[item.title]]
         </template>
       </vaadin-grid-column>
 
-      <vaadin-grid-column width="8em">
+      <vaadin-grid-column width="14em">
         <template class="header">
-          <vaadin-grid-sorter path="status">
+          <vaadin-grid-sorter path="text" direction="desc">
             <div class="header-cell">
-              Status
+              Text
             </div>
           </vaadin-grid-sorter>
         </template>
         <template>
-          <span class$="status-[[item.status]] status">[[_formatStatus(item.status)]]</span>
+          [[item.text]]
         </template>
       </vaadin-grid-column>
+
+      <!-- 
+
+      
+
+      
 
       <vaadin-grid-column width="14em" flex-grow="3">
         <template class="header">
@@ -134,7 +127,7 @@
         <template>
           <div class="comment">[[item.comment]]</div>
         </template>
-      </vaadin-grid-column>
+      </vaadin-grid-column> -->
 
     </vaadin-grid>
 
@@ -151,6 +144,12 @@
        * @memberof ExpenseManager
        */
       class ExpensesListElement extends ExpenseManager.ReduxMixin(Polymer.Element) {
+
+        ready() {
+          super.ready();
+          this.dispatch('getDocsData');
+        }
+
         static get is() {
           return 'expenses-list';
         }

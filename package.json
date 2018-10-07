@@ -5,15 +5,18 @@
   "main": "service-worker.js",
   "dependencies": {
     "@vaadin/router": "^1.0.0-rc.0",
+    "axios": "^0.18.0",
+    "moment": "^2.22.2",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.3.0",
     "reselect": "^3.0.1"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-gh-pages": "^0.5.4",
     "eslint": "^4.0.0",
     "eslint-config-vaadin": "latest",
     "eslint-plugin-html": "^4.0.0",
+    "gulp": "^3.9.1",
+    "gulp-gh-pages": "^0.5.4",
     "polymer-cli": "^1.6.0",
     "stylelint": "^8.0.0",
     "stylelint-config-vaadin": "latest"

@@ -1,5 +1,7 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/polymer-redux/polymer-redux.html">
+<script src="../../node_modules/redux/dist/redux.min.js"></script>
+<script src="../../node_modules/redux-thunk/dist/redux-thunk.js"></script>
 <link rel="import" href="actions.html">
 <link rel="import" href="selectors.html">
 <link rel="import" href="constants.html">
@@ -7,12 +9,11 @@
 
 <script>
   (() => {
-    const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    const devtools = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
       ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-      : Redux.compose;
+      : () => fn => fn;
 
-    const enhancer = composeEnhancers();
-    const store = Redux.createStore(ExpenseManager.rootReducer, enhancer);
+    const store = Redux.createStore(ExpenseManager.rootReducer, Redux.compose(Redux.applyMiddleware(ReduxThunk.default), devtools()));
 
     store.subscribe(() => {
       const state = store.getState();
