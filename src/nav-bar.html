@@ -4,6 +4,8 @@
 <link rel="import" href="../bower_components/vaadin-lumo-styles/color.html">
 <link rel="import" href="../bower_components/vaadin-lumo-styles/spacing.html">
 <link rel="import" href="../bower_components/vaadin-lumo-styles/typography.html">
+<link rel="import" href="../bower_components/vaadin-text-field/vaadin-text-field.html">
+<link rel="import" href="../bower_components/vaadin-icons/vaadin-icons.html">
 
 <link rel="import" href="data/store.html">
 
@@ -39,7 +41,10 @@
 
     <h1>Expense Manager</h1>
 
-    <vaadin-button on-click="_showInfoDialog" theme="small">Info</vaadin-button>
+    <vaadin-text-field placeholder="Search" on-change="_searchTitle" value={{query}}>
+      <iron-icon icon="lumo:search" slot="prefix"></iron-icon>
+    </vaadin-text-field>
+
     <vaadin-button on-click="_logout" theme="small">Logout</vaadin-button>
 
   </template>
@@ -54,12 +59,22 @@
           return 'nav-bar';
         }
 
+        static get properties() {
+          return {
+            query: String
+          }
+        }
+
         _showInfoDialog() {
           this.dispatch('showInfoDialog');
         }
 
         _logout() {
           this.dispatch('logout');
+        }
+
+        _searchTitle() {
+          this.dispatch('searchTitle', this.query);
         }
       }
 

@@ -11,7 +11,9 @@
     "app-layout": "polymerelements/app-layout#^2.0.0",
     "iron-media-query": "polymerelements/iron-media-query#^2.0.0",
     "paper-icon-button": "polymerelements/paper-icon-button#^2.0.0",
-    "polymer-redux": "^1.0.3"
+    "polymer-redux": "^1.0.3",
+    "vaadin-icons": "vaadin/vaadin-icons#^4.2.1",
+    "vaadin-text-field": "vaadin/vaadin-text-field#^2.1.2"
   },
   "devDependencies": {
     "web-component-tester": "^6.0.0"

@@ -113,6 +113,38 @@
       }
     }
 
+    const searchTitle = (query) => {
+
+      return (dispatch) => {
+
+        return axios.post('https://19d7d779f8a502497d7eed2a5d035771.ap-southeast-2.aws.found.io:9243/saveddoc/_search', {
+          "from":0,
+          "size":1000,
+          "aggs":{
+              "index":{
+                "terms":{
+                    "field":"_index"
+                }
+              }
+          },
+          "query":{
+              "bool":{
+                "must":{
+                    "match":{
+                      "title": query
+                    }
+                }
+              }
+          }
+        }).then((response) => {
+          dispatch({
+            type: 'INIT_EXPENSE',
+            expenses: response.data.hits.hits
+          })
+        });
+      }
+    }
+
     window.ExpenseManager = window.ExpenseManager || {};
     window.ExpenseManager.actions = {
       login,
@@ -127,7 +159,8 @@
       filtersUpdated,
       showInfoDialog,
       hideInfoDialog,
-      getDocsData
+      getDocsData,
+      searchTitle
     };
   })();
 </script>
